@@ -1,6 +1,6 @@
 {
   "name": "valerii-khilinich/module-lower-price-spotted",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Custom magento module that adds the ability for the customer to request a lower product price.",
   "type": "magento2-module",
   "require": {
