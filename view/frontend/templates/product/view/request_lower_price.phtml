@@ -1,0 +1,11 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<div class="block request-lower-price">
+    <div class="block-title"><strong><?= $escaper->escapeHtml(__('Write your own suggested price')) ?></strong></div>
+    <div class="block-content">
+        <?= /** @noEscape */ $block->getChildHtml('request_lower_price.form') ?>
+    </div>
+</div>

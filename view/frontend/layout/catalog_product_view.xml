@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.details">
+            <block name="request_lower_price.tab"
+                   as="request_lower_price"
+                   template="ValeriiKhilinich_LowerPriceSpotted::product/view/request_lower_price.phtml"
+                   ifconfig="lower_price_spotted/general/enabled"
+                   group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Request Lower Price</argument>
+                    <argument name="sort_order" xsi:type="string">40</argument>
+                </arguments>
+                <block name="product.request_lower_price_form"
+                       as="request_lower_price.form"
+                       ifconfig="lower_price_spotted/general/enabled"
+                       template="ValeriiKhilinich_LowerPriceSpotted::form.phtml">
+                    <arguments>
+                        <argument name="viewModel" xsi:type="object">ValeriiKhilinich\LowerPriceSpotted\ViewModel\Product\Tab\RequestLowerPrice</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

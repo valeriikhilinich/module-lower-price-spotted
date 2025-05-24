@@ -1,0 +1,112 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+/** @var \ValeriiKhilinich\LowerPriceSpotted\ViewModel\Product\Tab\RequestLowerPrice $viewModel */
+$viewModel = $block->getData('viewModel')
+?>
+<!-- ko scope: 'request-lower-price-form' -->
+    <form class="request-lower-price__form"
+          id="request-lower-price-form"
+          data-bind="mageInit: {'validation':{}}, submit: submitForm">
+        <fieldset class="fieldset">
+            <?= $block->getBlockHtml('formkey') ?>
+            <div class="field request-lower-price__field-email required">
+                <label for="email" class="label">
+                    <span><?= $escaper->escapeHtml(__('Email')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           class="input-text"
+                           data-validate="{'validate-email':true, required:true}"
+                           data-mage-init='{"mage/trim-input":{}}'
+                    />
+                </div>
+            </div>
+            <div class="field request-lower-price__select-source required">
+                <label for="source" class="label">
+                    <span><?= $escaper->escapeHtml(__('Source')) ?></span>
+                </label>
+                <select id="source" name="source" data-bind="value: selectedSource">
+                    <option value="url">Reference URL</option>
+                    <option value="description">Describe about another website</option>
+                </select>
+            </div>
+            <div class="field request-lower-price__field-url required" data-bind="visible: selectedSource == 'url'">
+                <label for="url" class="label">
+                    <span><?= $escaper->escapeHtml(__('Url')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="url"
+                           id="url"
+                           class="input-text"
+                           data-validate="{required:true, 'validate-url': true}"
+                    />
+                </div>
+            </div>
+            <div class="field request-lower-price__field-description required" data-bind="visible: selectedSource == 'description'">
+                <label for="description" class="label">
+                    <span><?= $escaper->escapeHtml(__('Description')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="description"
+                           id="description"
+                           class="input-text"
+                           data-validate="{required:true, 'validate-no-html-tags': true}"
+                    />
+                </div>
+            </div>
+            <div class="field request-lower-price__field-price required">
+                <label for="price" class="label">
+                    <span><?= $escaper->escapeHtml(__('Price')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="price"
+                           id="price"
+                           class="input-text"
+                           data-validate="{required: true, 'validate-greater-than-zero': true, 'validate-number': true}"
+                    />
+                </div>
+            </div>
+            <div class="field request-lower-price__field-comment">
+                <label for="comment" class="label"><span><?= $escaper->escapeHtml(__('Comment')) ?></span></label>
+                <div class="control">
+                    <textarea name="comment"
+                              id="comment"
+                              cols="5"
+                              rows="3"
+                              data-validate="{'validate-no-html-tags': true}"
+                              data-mage-init='{"mage/trim-input":{}}'></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar request-lower-price-form__actions">
+            <div class="primary actions-primary">
+                <button type="submit" class="action submit primary">
+                    <span><?= $escaper->escapeHtml(__('Submit')) ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+<!-- /ko -->
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "request-lower-price-form": {
+                        "component": "ValeriiKhilinich_LowerPriceSpotted/js/product/request-lower-price-form",
+                        "selectedSource": "description",
+                        "submitUrl": "<?= $escaper->escapeUrl($viewModel->getSubmitUrl()) ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

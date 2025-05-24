@@ -1,0 +1,20 @@
+{
+  "name": "valerii-khilinich/module-lower-price-spotted",
+  "version": "1.0.0",
+  "description": "Custom module to add ability for customer to request lower price.",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "license": [
+    "Apache-2.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "ValeriiKhilinich\\LowerPriceSpotted\\": ""
+    }
+  }
+}

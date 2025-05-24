@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="requested_lower_price" resource="default" engine="innodb" comment="Table to store customers' lower price requests">
+        <column name="request_id" xsi:type="int" identity="true" nullable="false" unsigned="false" comment="Request ID" />
+        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" comment="Product ID" />
+        <column name="status" xsi:type="tinyint" nullable="false" default="0" unsigned="false" comment="Request status" />
+        <column name="reference_url" xsi:type="varchar" nullable="true" length="1024" comment="Url from external website" />
+        <column name="competitor_description" xsi:type="text" nullable="true" comment="Description of competitor product" />
+        <column name="email" xsi:type="varchar"  nullable="true" length="255" comment="Email"/>
+        <column name="price" xsi:type="decimal"  scale="6" precision="20" unsigned="false" nullable="false" comment="Price"/>
+        <column name="comment" xsi:type="text" nullable="true" comment="Comment"/>
+        <column name="created_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="request_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="REQUESTED_LOWER_PRICE_PRD_ID_CAT_PRD_ENTT_ENTT_ID"
+                    table="requested_lower_price"
+                    column="product_id"
+                    onDelete="CASCADE"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id"
+        />
+    </table>
+</schema>

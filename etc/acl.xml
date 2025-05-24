@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Catalog::catalog">
+                    <resource id="ValeriiKhilinich_LowerPriceSpotted::requests_management"
+                              title="Lower price requests management"
+                              sortOrder="1000"
+                              translate="title">
+                        <resource id="ValeriiKhilinich_LowerPriceSpotted::view_requests"
+                                  title="View requests list"
+                                  sortOrder="10"
+                                  translate="title">
+                            <resource id="ValeriiKhilinich_LowerPriceSpotted::delete_requests"
+                                      title="Delete requests"
+                                      sortOrder="10"
+                                      translate="title"
+                            />
+                            <resource id="ValeriiKhilinich_LowerPriceSpotted::manage_requests"
+                                      title="Manage requests"
+                                      sortOrder="20"
+                                      translate="title"
+                            />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="ValeriiKhilinich_LowerPriceSpotted::config_extension"
+                                      title="Lower Price Spotted Extension Configuration"
+                                      translate="title"
+                                      sortOrder="1000000"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

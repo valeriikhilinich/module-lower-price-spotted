@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="ValeriiKhilinich\LowerPriceSpotted\Api\Data\RequestedLowerPriceInterface"
+                type="ValeriiKhilinich\LowerPriceSpotted\Model\RequestedLowerPrice"/>
+
+    <type name="ValeriiKhilinich\LowerPriceSpotted\Model\ValidatorsPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="competitors_reference" xsi:type="object">ValeriiKhilinich\LowerPriceSpotted\Model\Validator\CompetitorReference</item>
+                <item name="sender_email" xsi:type="object">ValeriiKhilinich\LowerPriceSpotted\Model\Validator\SenderEmail</item>
+                <item name="price" xsi:type="object">ValeriiKhilinich\LowerPriceSpotted\Model\Validator\Price</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
