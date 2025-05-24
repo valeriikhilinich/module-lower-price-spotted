@@ -4,7 +4,6 @@
   "description": "Custom magento module that adds the ability for the customer to request a lower product price.",
   "type": "magento2-module",
   "require": {
-    "php": "8.3.*",
     "magento/framework": "*"
   },
   "license": [
