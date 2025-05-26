@@ -15,11 +15,15 @@ class RequestManager
      * @param RequestedLowerPriceResource $requestedLowerPriceResource
      * @param PriceModificator $priceModificator
      * @param LoggerInterface $logger
+     * @param RequestedLowerPriceFactory $requestedLowerPriceFactory
+     * @param RequestedLowerPriceResource $requestedLowerPrice
      */
     public function __construct(
         private readonly RequestedLowerPriceResource $requestedLowerPriceResource,
         private readonly PriceModificator $priceModificator,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly RequestedLowerPriceFactory $requestedLowerPriceFactory,
+        private readonly RequestedLowerPriceResource $requestedLowerPrice,
     ) {
     }
 
@@ -78,6 +82,33 @@ class RequestManager
             $this->logger->error($exception->getMessage());
             throw new LocalizedException(__('Something went wrong while modifying the requested price.'));
         }
+
+        return $requestedLowerPrice;
+    }
+
+    /**
+     * Save the request record with the validated and cleaned data.
+     *
+     * @param array $preparedData
+     *
+     * @return RequestedLowerPriceInterface
+     *
+     * @throws AlreadyExistsException
+     */
+    public function saveRequestFromData(array $preparedData): RequestedLowerPriceInterface
+    {
+        /** @var RequestedLowerPriceInterface $requestedLowerPrice */
+        $requestedLowerPrice = $this->requestedLowerPriceFactory->create();
+
+        $requestedLowerPrice->setProductId((int)$preparedData["product_id"])
+            ->setPrice((float)$preparedData["price"])
+            ->setEmail($preparedData["email"])
+            ->setReferenceUrl($preparedData["url"] ?: null)
+            ->setCompetitorDescription($preparedData["description"] ?: null)
+            ->setComment($preparedData["comment"] ?: null)
+            ->setStatus(RequestStatus::REQUESTED);
+
+        $this->requestedLowerPrice->save($requestedLowerPrice);
 
         return $requestedLowerPrice;
     }

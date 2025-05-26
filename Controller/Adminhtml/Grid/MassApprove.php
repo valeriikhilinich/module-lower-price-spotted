@@ -2,7 +2,6 @@
 
 namespace ValeriiKhilinich\LowerPriceSpotted\Controller\Adminhtml\Grid;
 
-use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;
@@ -13,7 +12,6 @@ use Magento\Ui\Component\MassAction\Filter;
 use ValeriiKhilinich\LowerPriceSpotted\Api\Data\RequestedLowerPriceInterface;
 use ValeriiKhilinich\LowerPriceSpotted\Model\RequestManager;
 use ValeriiKhilinich\LowerPriceSpotted\Model\RequestStatus;
-use ValeriiKhilinich\LowerPriceSpotted\Model\ResourceModel\RequestedLowerPrice as RequestedLowerPriceResource;
 use ValeriiKhilinich\LowerPriceSpotted\Model\ResourceModel\RequestedLowerPrice\CollectionFactory;
 
 class MassApprove extends Action implements HttpPostActionInterface

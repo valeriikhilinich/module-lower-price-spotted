@@ -2,7 +2,6 @@
 
 namespace ValeriiKhilinich\LowerPriceSpotted\Controller\Adminhtml\Grid;
 
-use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;

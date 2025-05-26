@@ -2,13 +2,13 @@
 
 namespace ValeriiKhilinich\LowerPriceSpotted\Controller\Adminhtml\Grid;
 
-use Magento\Backend\App\AbstractAction;
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use ValeriiKhilinich\LowerPriceSpotted\Model\Config\ConfigProvider;
 
-class Index extends AbstractAction
+class Index extends Action
 {
     /**
      * @inheritDoc

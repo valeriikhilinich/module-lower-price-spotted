@@ -9,13 +9,10 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Message\ManagerInterface;
 use Psr\Log\LoggerInterface;
-use ValeriiKhilinich\LowerPriceSpotted\Api\Data\RequestedLowerPriceInterface;
-use ValeriiKhilinich\LowerPriceSpotted\Api\Data\RequestedLowerPriceInterfaceFactory;
 use ValeriiKhilinich\LowerPriceSpotted\Exception\InvalidRequestDataException;
 use ValeriiKhilinich\LowerPriceSpotted\Model\Config\ConfigProvider;
 use ValeriiKhilinich\LowerPriceSpotted\Model\RequestDataProcessor;
-use ValeriiKhilinich\LowerPriceSpotted\Model\RequestStatus;
-use ValeriiKhilinich\LowerPriceSpotted\Model\ResourceModel\RequestedLowerPrice as RequestedLowerPriceResource;
+use ValeriiKhilinich\LowerPriceSpotted\Model\RequestManager;
 
 class Send implements HttpPostActionInterface
 {
@@ -24,8 +21,7 @@ class Send implements HttpPostActionInterface
      * @param ResultFactory $resultFactory
      * @param ManagerInterface $messageManager
      * @param RequestDataProcessor $requestDataProcessor
-     * @param RequestedLowerPriceInterfaceFactory $requestedLowerPriceFactory
-     * @param RequestedLowerPriceResource $requestedLowerPrice
+     * @param RequestManager $requestManager
      * @param LoggerInterface $logger
      * @param ConfigProvider $configProvider
      */
@@ -34,8 +30,7 @@ class Send implements HttpPostActionInterface
         private readonly ResultFactory $resultFactory,
         private readonly ManagerInterface $messageManager,
         private readonly RequestDataProcessor $requestDataProcessor,
-        private readonly RequestedLowerPriceInterfaceFactory $requestedLowerPriceFactory,
-        private readonly RequestedLowerPriceResource $requestedLowerPrice,
+        private readonly RequestManager $requestManager,
         private readonly LoggerInterface $logger,
         private readonly ConfigProvider $configProvider,
     ) {
@@ -64,7 +59,7 @@ class Send implements HttpPostActionInterface
             $preparedData = $this->requestDataProcessor->processData($data);
             $preparedData['product_id'] = $productId;
 
-            $this->saveRequest($preparedData);
+            $this->requestManager->saveRequestFromData($preparedData);
         } catch (InvalidRequestDataException $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
 
@@ -93,28 +88,5 @@ class Send implements HttpPostActionInterface
             ->setData([
                 'success' => $success,
             ]);
-    }
-
-    /**
-     * Save the query record with the validated and cleaned data.
-     *
-     * @param array $preparedData
-     * @return void
-     * @throws AlreadyExistsException
-     */
-    private function saveRequest(array $preparedData): void
-    {
-        /** @var RequestedLowerPriceInterface $requestedLowerPrice */
-        $requestedLowerPrice = $this->requestedLowerPriceFactory->create();
-
-        $requestedLowerPrice->setProductId((int)$preparedData["product_id"])
-            ->setPrice((float)$preparedData["price"])
-            ->setEmail($preparedData["email"])
-            ->setReferenceUrl($preparedData["url"] ?: null)
-            ->setCompetitorDescription($preparedData["description"] ?: null)
-            ->setComment($preparedData["comment"] ?: null)
-            ->setStatus(RequestStatus::REQUESTED);
-
-        $this->requestedLowerPrice->save($requestedLowerPrice);
     }
 }
