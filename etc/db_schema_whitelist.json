@@ -1,0 +1,19 @@
+{
+    "requested_lower_price": {
+        "column": {
+            "request_id": true,
+            "product_id": true,
+            "status": true,
+            "reference_url": true,
+            "competitor_description": true,
+            "email": true,
+            "price": true,
+            "comment": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "REQUESTED_LOWER_PRICE_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true
+        }
+    }
+}

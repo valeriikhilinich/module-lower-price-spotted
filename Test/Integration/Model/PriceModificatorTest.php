@@ -4,7 +4,6 @@ namespace ValeriiKhilinich\LowerPriceSpotted\Test\Integration\Model;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\ObjectManagerInterface;
-use Magento\TestFramework\Fixture\DataFixture;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
 use ValeriiKhilinich\LowerPriceSpotted\Api\Data\RequestedLowerPriceInterface;
